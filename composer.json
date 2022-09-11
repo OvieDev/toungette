@@ -1,5 +1,6 @@
 {
   "require": {
-    "ext-json": "*"
+    "ext-json": "*",
+    "vendor/simple-html-dom/simple-html-dom": "*"
   }
 }

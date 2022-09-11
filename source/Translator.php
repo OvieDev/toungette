@@ -1,25 +1,26 @@
 <?php
 
+
 namespace toungette;
 
 use Exception;
 
 class Translator
 {
-    private $template_path;
-    private $page_template;
-    private $json_template;
-    public $lang;
-    public $langs;
+    private readonly string $template_path;
+    private readonly string $page_template;
+    private readonly array $json_template;
+    public string $lang;
+    public readonly array $langs;
 
     public function __construct($template, $page, $lang=null) {
         $this->template_path = $template;
         $this->page_template = $page;
-        if (isset($lang)) {
+        if (isset($_GET['lang'])) {
+            $this->lang = $_GET['lang'];
+        }
+        elseif (isset($lang)) {
             $this->lang = $lang;
-            if (isset($_GET['lang'])) {
-                $this->lang = substr($_GET['lang'], 0, 2);
-            }
         }
         else {
             $this->lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
@@ -29,9 +30,7 @@ class Translator
 
     public function parse_lang_template() {
         try {
-            $json_file = fopen($this->template_path, "r");
-            $json_raw = fread($json_file, filesize($this->template_path));
-            fclose($json_file);
+            $json_raw = file_get_contents($this->template_path);
             if (!$json_raw) {
                 throw new Exception("Couldn't find file or open it");
             }
@@ -54,8 +53,23 @@ class Translator
 
     }
 
-    //TODO: translate function
-    public function translate() {
+    private function getLangIndex() {
+        $index = 0;
+        foreach ($this->langs as $l) {
+            if ($l==$this->lang) {
+                return $index;
+            }
+            $index+=1;
+        }
+        return 0;
+    }
 
+    public function translate() {
+        $html = file_get_contents($this->page_template);
+        foreach (array_keys($this->json_template['keys']) as $key) {
+            $html = preg_replace('/(?<!\| | ")key.hello(?<!\| | ")/', $this->json_template['keys'][$key][$this->getLangIndex()], $html);
+        }
+        $html = str_replace("|", "", $html);
+        echo $html;
     }
 }
