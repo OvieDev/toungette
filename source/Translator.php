@@ -67,9 +67,10 @@ class Translator
     public function translate() {
         $html = file_get_contents($this->page_template);
         foreach (array_keys($this->json_template['keys']) as $key) {
-            $html = preg_replace('/(?<!\| | ")key.hello(?<!\| | ")/', $this->json_template['keys'][$key][$this->getLangIndex()], $html);
+            $pattern = '/(?<!\/){'.$key.'}/';
+            $html = preg_replace($pattern, $this->json_template['keys'][$key][$this->getLangIndex()], $html);
         }
-        $html = str_replace("|", "", $html);
+        $html = preg_replace('/(?<=[\s\t\n])\//', '', $html);
         echo $html;
     }
 }
