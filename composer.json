@@ -1,6 +1,9 @@
 {
   "require": {
     "ext-json": "*",
-    "vendor/simple-html-dom/simple-html-dom": "*"
+    "simplehtmldom/simplehtmldom": "dev-master"
+  },
+  "autoload": {
+    "files": ["vendor/simplehtmldom/simplehtmldom/simple_html_dom.php"]
   }
 }

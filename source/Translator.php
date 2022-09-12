@@ -2,7 +2,7 @@
 
 
 namespace toungette;
-
+require_once '..\vendor\autoload.php';
 use Exception;
 
 class Translator
@@ -28,7 +28,8 @@ class Translator
         $this->parse_lang_template();
     }
 
-    public function parse_lang_template() {
+    public function parse_lang_template(): void
+    {
         try {
             $json_raw = file_get_contents($this->template_path);
             if (!$json_raw) {
@@ -53,7 +54,8 @@ class Translator
 
     }
 
-    private function getLangIndex() {
+    private function get_lang_index(): int
+    {
         $index = 0;
         foreach ($this->langs as $l) {
             if ($l==$this->lang) {
@@ -64,13 +66,36 @@ class Translator
         return 0;
     }
 
-    public function translate() {
+    private function translate_links($page): string
+    {
+        $html = str_get_html($page);
+        $a = $html->find("a[href]");
+        foreach ($a as $link) {
+            $url = $link->href;
+            $query = parse_url($url, PHP_URL_QUERY);
+            if (!str_contains($query, "lang")) {
+                if ($query) {
+                    $symbol = '&';
+                } else {
+                    $symbol = '?';
+                }
+                $url .= $symbol."lang=".$this->lang;
+            }
+            $link->href = $url;
+        }
+        return (string)$html;
+
+    }
+
+    public function translate(): void
+    {
         $html = file_get_contents($this->page_template);
         foreach (array_keys($this->json_template['keys']) as $key) {
             $pattern = '/(?<!\/){'.$key.'}/';
-            $html = preg_replace($pattern, $this->json_template['keys'][$key][$this->getLangIndex()], $html);
+            $html = preg_replace($pattern, $this->json_template['keys'][$key][$this->get_lang_index()], $html);
         }
         $html = preg_replace('/(?<=[\s\t\n])\//', '', $html);
+        $html = $this->translate_links($html);
         echo $html;
     }
 }
