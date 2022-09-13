@@ -52,6 +52,7 @@ Notice that our keys are in curly braces.
 \
 \
 Now, it's time for our `index.php` file. This is where the translation magic comes in. It contains every standard tag required for the website (`<html>` and `<head>`), excluding `<body>`
+
 ```php
 <!DOCTYPE HTML>
 <html>
@@ -61,7 +62,7 @@ Now, it's time for our `index.php` file. This is where the translation magic com
   </head>
   <?php
     require_once 'vendor/autoload.php';
-    use toungette\Translator;
+    use Oviedev\Toungette\toungette\Translator;
     $t = new Translator('schem.json', 'index.tounge');
     $t->translate();
     echo $t->text;
