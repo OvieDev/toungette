@@ -67,21 +67,26 @@ class Translator
         return 0;
     }
 
+    private function add_url_param($url): string
+    {
+        $query = parse_url($url, PHP_URL_QUERY);
+        if (!str_contains($query, "lang")) {
+            if ($query) {
+                $symbol = '&';
+            } else {
+                $symbol = '?';
+            }
+            $url .= $symbol . "lang=" . $this->lang;
+        }
+        return $url;
+    }
+
     private function translate_links($page): string
     {
         $html = str_get_html($page);
         $a = $html->find("a[href]");
         foreach ($a as $link) {
-            $url = $link->href;
-            $query = parse_url($url, PHP_URL_QUERY);
-            if (!str_contains($query, "lang")) {
-                if ($query) {
-                    $symbol = '&';
-                } else {
-                    $symbol = '?';
-                }
-                $url .= $symbol."lang=".$this->lang;
-            }
+            $url = $this->add_url_param($link->href);
             $link->href = $url;
         }
         return (string)$html;
