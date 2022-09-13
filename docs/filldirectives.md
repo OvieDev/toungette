@@ -68,4 +68,6 @@ That's the result:\
 **TIP:** When you have a lot of fills to do, your `index.php` can
 become pretty bloated. You can create another file, which contains
 functions. In that way, your main file is not so bloated and you have
-everything organized.
+everything organized.\
+\
+[< BACK](basics.md)
