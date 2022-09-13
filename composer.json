@@ -3,6 +3,7 @@
     "description": "Toungette is a small and simple PHP library used to simplify translating your website",
     "type": "library",
     "license": "MIT",
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "Oviedev\\Toungette\\": "source/"
