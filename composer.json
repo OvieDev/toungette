@@ -10,8 +10,8 @@
   },
   "autoload": {
     "files": ["vendor/simplehtmldom/simplehtmldom/simple_html_dom.php"],
-    "psr-0": {
-      "toungette": "source/"
+    "psr-4": {
+      "Translator\\": "source/toungette"
     }
   }
 }
