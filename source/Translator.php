@@ -7,11 +7,12 @@ use Exception;
 
 class Translator
 {
-    private readonly string $template_path;
-    private readonly string $page_template;
-    private readonly array $json_template;
+    private string $template_path;
+    private string $page_template;
+    private array $json_template;
     public string $lang;
-    public readonly array $langs;
+    private array $langs;
+    public string $text;
 
     public function __construct($template, $page, $lang=null) {
         $this->template_path = $template;
@@ -96,6 +97,13 @@ class Translator
         }
         $html = preg_replace('/(?<=[\s\t\n])\//', '', $html);
         $html = $this->translate_links($html);
-        echo $html;
+        $this->text = $html;
+    }
+
+    public function fill(array $array): void {
+        foreach ($array as $item) {
+            $item = str_replace('@', '&#64;', $item);
+            $this->text = preg_replace('/@fill/', $item, $this->text, 1);
+        }
     }
 }
