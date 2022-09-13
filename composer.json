@@ -9,6 +9,9 @@
     "simplehtmldom/simplehtmldom": "dev-master"
   },
   "autoload": {
-    "files": ["vendor/simplehtmldom/simplehtmldom/simple_html_dom.php"]
+    "files": ["vendor/simplehtmldom/simplehtmldom/simple_html_dom.php"],
+    "psr-0": {
+      "toungette": "source/"
+    }
   }
 }
