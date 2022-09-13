@@ -11,6 +11,9 @@ You only need 3 files to make it work, and you still have full control over
 your translations without any need to create the same page twice, but with different
 text.
 
+## Documentation
+You can view documentation here: [Documentation](docs/introduction.md)
+
 ## How to use
 Let's make a simple website with one page.\
 Setup 3 files. `schem.json`, `index.tounge` and `index.php`.\
