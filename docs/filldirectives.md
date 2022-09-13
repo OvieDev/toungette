@@ -19,6 +19,7 @@ We implement them in page templates, just like this:
 ## Filling the gaps
 Now, we want to fill that gap with a random number. So, when we have
 our `index.php` file:
+
 ```php
 <!DOCTYPE HTML>
 <html>
@@ -28,7 +29,7 @@ our `index.php` file:
     </head>
     <?php
         require_once 'vendor/autoload.php';
-        use toungette\Translator;
+        use OvieDev\Toungette\Translator;
     
         $t = new Translator("schem.json", "index.tounge");
         $t->translate();
@@ -41,6 +42,7 @@ We would add after `$t->translate()` a new method. `$t->fill()`\
 with an array element. First @fill will be filled with index 0, second with 1 etc.
 \
 So let's transform our file to do our fills:
+
 ```php
 <!DOCTYPE HTML>
 <html>
@@ -50,7 +52,7 @@ So let's transform our file to do our fills:
     </head>
     <?php
         require_once 'vendor/autoload.php';
-        use toungette\Translator;
+        use OvieDev\Toungette\Translator;
     
         $t = new Translator("schem.json", "index.tounge");
         $t->translate();

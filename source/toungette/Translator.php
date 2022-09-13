@@ -1,7 +1,7 @@
 <?php
 
 
-namespace toungette;
+namespace OvieDev\Toungette;
 require_once '../../vendor/autoload.php';
 use Exception;
 

@@ -63,11 +63,12 @@ So let's look at sample `.tounge` file:
 ## Main Page 
 Our main page is where we do actual code magic. It's our `index.php`
 file in this case. We do the opposite to the page template here. We define
-everything except `<body>`. Instead we write this: 
+everything except `<body>`. Instead we write this:
+
 ```php
 <?php
     require_once 'vendor/autoload.php';
-    use toungette\Translator;
+    use OvieDev\Toungette\Translator;
     
     $t = new Translator("schem.json", "index.tounge");
     $t->translate();
@@ -79,6 +80,7 @@ language scheme and `index.tounge` as a page template. Then we
 tell him to translate our template using keys from scheme and then
 we echo out the result.\
 Full code of `index.php`:
+
 ```php
 <!DOCTYPE HTML>
 <html>
@@ -88,7 +90,7 @@ Full code of `index.php`:
     </head>
     <?php
         require_once 'vendor/autoload.php';
-        use toungette\Translator;
+        use OvieDev\Toungette\Translator;
     
         $t = new Translator("schem.json", "index.tounge");
         $t->translate();
