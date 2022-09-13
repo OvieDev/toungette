@@ -31,28 +31,21 @@ class Translator
 
     public function parse_lang_template(): void
     {
-        try {
-            $json_raw = file_get_contents($this->template_path);
-            if (!$json_raw) {
-                throw new Exception("Couldn't find file or open it");
-            }
-            $json = json_decode($json_raw, true);
-            if (!isset($json)) {
-                throw new Exception("Invalid JSON");
-            }
-            $this->json_template = $json;
-            $this->langs = $this->json_template['schema'];
-            foreach ($this->json_template['keys'] as $key) {
-                if (count($key)!=count($this->langs)) {
-                    throw new Exception("Key breaks schema");
-                }
-            }
-
+        $json_raw = file_get_contents($this->template_path);
+        if (!$json_raw) {
+            throw new Exception("Couldn't find file or open it");
         }
-        catch (Exception $e) {
-            die("Cannot parse JSON: $e");
+        $json = json_decode($json_raw, true);
+        if (!isset($json)) {
+            throw new Exception("Invalid JSON");
         }
-
+        $this->json_template = $json;
+        $this->langs = $this->json_template['schema'];
+        foreach ($this->json_template['keys'] as $key) {
+            if (count($key)!=count($this->langs)) {
+                throw new Exception("Key breaks schema");
+            }
+        }
     }
 
     private function get_lang_index(): int
