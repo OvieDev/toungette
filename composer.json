@@ -7,7 +7,9 @@
     "autoload": {
         "psr-4": {
             "Oviedev\\Toungette\\": "source/"
-        }
+        },
+        "files": ["vendor/simplehtmldom/simplehtmldom/simple_html_dom.php"]
+
     },
     "authors": [
         {

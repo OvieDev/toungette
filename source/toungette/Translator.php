@@ -2,7 +2,7 @@
 
 
 namespace toungette;
-require_once __DIR__.'vendor/autoload.php';
+require_once '../../vendor/autoload.php';
 use Exception;
 
 class Translator
