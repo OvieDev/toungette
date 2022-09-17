@@ -29,7 +29,6 @@ our `index.php` file:
     </head>
     <?php
         require_once 'vendor/autoload.php';
-        use OvieDev\Toungette\Translator;
     
         $t = new Translator("schem.json", "index.tounge");
         $t->translate();
@@ -52,7 +51,6 @@ So let's transform our file to do our fills:
     </head>
     <?php
         require_once 'vendor/autoload.php';
-        use OvieDev\Toungette\Translator;
     
         $t = new Translator("schem.json", "index.tounge");
         $t->translate();

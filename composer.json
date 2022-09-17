@@ -6,9 +6,8 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "OvieDev\\Toungette\\": "source/toungette"
-        },
-        "files": ["vendor/simplehtmldom/simplehtmldom/simple_html_dom.php"]
+            "OvieDev\\Toungette\\": "source"
+        }
 
     },
     "authors": [
