@@ -91,7 +91,7 @@ Full code of `index.php`:
     <?php
         require_once 'vendor/autoload.php';
         use OvieDev\Toungette\Translator;
-    
+        
         $t = new Translator("schem.json", "index.tounge");
         $t->translate();
         echo $t->text;

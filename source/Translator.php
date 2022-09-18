@@ -2,8 +2,8 @@
 
 
 namespace OvieDev\Toungette;
-require_once '../../vendor/autoload.php';
 use Exception;
+use simplehtmldom\HtmlDocument;
 
 class Translator
 {
@@ -76,13 +76,14 @@ class Translator
 
     private function translate_links($page): string
     {
-        $html = str_get_html($page);
+        $html = new HtmlDocument();
+        $html->load($page);
         $a = $html->find("a[href]");
         foreach ($a as $link) {
             $url = $this->add_url_param($link->href);
             $link->href = $url;
         }
-        return (string)$html;
+        return $html;
 
     }
 
