@@ -29,7 +29,8 @@ our `index.php` file:
     </head>
     <?php
         require_once 'vendor/autoload.php';
-    
+        use OvieDev\Toungette\Translator;
+        
         $t = new Translator("schem.json", "index.tounge");
         $t->translate();
         echo $t->text;
@@ -51,7 +52,8 @@ So let's transform our file to do our fills:
     </head>
     <?php
         require_once 'vendor/autoload.php';
-    
+        use OvieDev\Toungette\Translator;
+        
         $t = new Translator("schem.json", "index.tounge");
         $t->translate();
         $t->fill([strval(random_int(0, 100))]);

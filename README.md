@@ -65,7 +65,8 @@ Now, it's time for our `index.php` file. This is where the translation magic com
   </head>
   <?php
     require_once 'vendor/autoload.php';
-    use OvieDev\Toungette\toungette\Translator;
+    use OvieDev\Toungette\Translator;
+    
     $t = new Translator('schem.json', 'index.tounge');
     $t->translate();
     echo $t->text;

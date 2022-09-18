@@ -2,7 +2,6 @@
 
 
 namespace OvieDev\Toungette;
-require_once __DIR__.'/../vendor/autoload.php';
 use Exception;
 use simplehtmldom\HtmlDocument;
 
