@@ -11,6 +11,9 @@ You only need 3 files to make it work, and you still have full control over
 your translations without any need to create the same page twice, but with different
 text.
 
+## Installation
+`composer require oviedev/toungette`
+
 ## Documentation
 You can view documentation here: [Documentation](docs/introduction.md)
 
