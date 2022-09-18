@@ -4,7 +4,8 @@
 namespace OvieDev\Toungette;
 require_once __DIR__.'/../vendor/autoload.php';
 use Exception;
-use function str_get_html;
+use simplehtmldom\HtmlDocument;
+
 class Translator
 {
     private string $template_path;
@@ -76,13 +77,14 @@ class Translator
 
     private function translate_links($page): string
     {
-        $html = str_get_html($page);
+        $html = new HtmlDocument();
+        $html->load($page);
         $a = $html->find("a[href]");
         foreach ($a as $link) {
             $url = $this->add_url_param($link->href);
             $link->href = $url;
         }
-        return (string)$html;
+        return $html;
 
     }
 
