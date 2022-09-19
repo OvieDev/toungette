@@ -8,7 +8,7 @@ final class SchemeTests extends TestCase{
 
     protected function setUp(): void
     {
-        $this->scheme = new Scheme("test_component_schem.json", "fallback");
+        $this->scheme = new Scheme("schem.json", "fallback");
     }
 
     public function test_add(): void {
@@ -21,7 +21,7 @@ final class SchemeTests extends TestCase{
      * @depends test_add
      */
     public function test_reset(): void {
-        $this->scheme = new Scheme("test_component_schem.json", "fallback");
+        $this->scheme = new Scheme("schem.json", "fallback");
         $this->scheme->modify_key("key.new", ["hey", "im", "new"]);
         $this->scheme->reset_scheme();
 
