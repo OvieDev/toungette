@@ -76,14 +76,33 @@ class Scheme
         }
     }
 
-    public function getKeys()
+    public function pop_from_schema(): void {
+        array_pop($this->schema);
+        foreach ($this->keys as &$key) {
+            array_pop($key);
+        }
+    }
+
+    public function get_keys()
     {
         return $this->keys;
     }
 
-    public function getSchema()
+    public function get_schema()
     {
         return $this->schema;
+    }
+
+    public function get_key_with_lang(string $key, string $lang): string
+    {
+        if (!in_array($lang, $this->schema)) {
+            $lang = $this->schema[0];
+        }
+        if (!array_key_exists($key, $this->keys)) {
+            throw new Exception("Key doesn't exists");
+        }
+
+        return $this->keys[$key][array_search($lang, $this->schema)];
     }
 
 }
