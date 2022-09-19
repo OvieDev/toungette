@@ -2,20 +2,17 @@
 
 
 namespace OvieDev\Toungette;
-use Exception;
+use OvieDev\Toungette\Scheme;
 use simplehtmldom\HtmlDocument;
 
 class Translator
 {
-    private string $template_path;
     private string $page_template;
-    private array $json_template;
+    public Scheme $scheme;
     public string $lang;
-    private array $langs;
     public string $text;
 
     public function __construct($template, $page, $lang=null) {
-        $this->template_path = $template;
         $this->page_template = $page;
         if (isset($_GET['lang'])) {
             $this->lang = $_GET['lang'];
@@ -26,32 +23,13 @@ class Translator
         else {
             $this->lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
         }
-        $this->parse_lang_template();
-    }
-
-    public function parse_lang_template(): void
-    {
-        $json_raw = file_get_contents($this->template_path);
-        if (!$json_raw) {
-            throw new Exception("Couldn't find file or open it");
-        }
-        $json = json_decode($json_raw, true);
-        if (!isset($json)) {
-            throw new Exception("Invalid JSON");
-        }
-        $this->json_template = $json;
-        $this->langs = $this->json_template['schema'];
-        foreach ($this->json_template['keys'] as $key) {
-            if (count($key)!=count($this->langs)) {
-                throw new Exception("Key breaks schema");
-            }
-        }
+        $this->scheme = new Scheme($template, "Fallback text");
     }
 
     private function get_lang_index(): int
     {
         $index = 0;
-        foreach ($this->langs as $l) {
+        foreach ($this->scheme->get_schema() as $l) {
             if ($l==$this->lang) {
                 return $index;
             }
@@ -90,9 +68,9 @@ class Translator
     public function translate(): void
     {
         $html = file_get_contents($this->page_template);
-        foreach (array_keys($this->json_template['keys']) as $key) {
+        foreach (array_keys($this->scheme->get_keys()) as $key) {
             $pattern = '/(?<!\/){'.$key.'}/';
-            $html = preg_replace($pattern, $this->json_template['keys'][$key][$this->get_lang_index()], $html);
+            $html = preg_replace($pattern, $this->scheme->get_keys()[$key][$this->get_lang_index()], $html);
         }
         $html = preg_replace('/(?<=[\s\t\n])\//', '', $html);
         $html = $this->translate_links($html);
