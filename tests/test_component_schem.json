@@ -1,0 +1,10 @@
+{
+  "schema": ["en", "pl", "es"],
+  "keys": {
+    "key.coolkey": [
+      "hi",
+      "cool",
+      "key"
+    ]
+  }
+}
