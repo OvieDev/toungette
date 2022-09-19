@@ -4,9 +4,9 @@ packagist with:\
 `composer require oviedev/toungette` 
 \
 \
-If you want to use developer versions (or you just get a silly error
-about minimum-stability) add `"minimum-stability": "dev"` to your
-composer.json.
+**NOTE:** you also need to add `"minimum-stability": "rc"` to your `composer.json`. That's
+because simplehtmldom doesn't have a stable release yet (at least on packagist), and you
+will get an error, while downloading Toungette
 \
 Now, if you want to translate a single page, create 3 files.
 `schem.json`, `index.tounge` and `index.php`.

@@ -11,6 +11,12 @@ You only need 3 files to make it work, and you still have full control over
 your translations without any need to create the same page twice, but with different
 text.
 
+## Installation
+Before you install it, in your `composer.json` add `"minimum-stability": "rc"`. That's
+because there is no version of simplehtmldom that is stable (at least on packagist).
+After you did so, use:\
+`composer require oviedev/toungette`
+
 ## Documentation
 You can view documentation here: [Documentation](docs/introduction.md)
 
