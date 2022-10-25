@@ -13,6 +13,14 @@ class Scheme
     private array $keys;
     private array $namespaces = [];
 
+    private function namespace_operation($func) {
+        foreach ($this->namespaces as &$namespace) {
+            foreach ($namespace as &$key) {
+                $func($key);
+            }
+        }
+    }
+
     public function __construct($file, $fallback)
     {
         $json_raw = file_get_contents($file);
@@ -72,11 +80,9 @@ class Scheme
             foreach ($this->keys as &$key) {
                 $key[] = $this->fallback;
             }
-            foreach ($this->namespaces as &$namespace) {
-                foreach ($namespace as &$key) {
-                    $key[] = $this->fallback;
-                }
-            }
+            $this->namespace_operation(function (&$key) {
+                $key[] = $this->fallback;
+            });
         }
         else {
             $total_count = 0;
@@ -89,12 +95,12 @@ class Scheme
                     $key[] = $values[$i];
                     $i++;
                 }
-                foreach ($this->namespaces as &$namespace) {
-                    foreach ($namespace as &$key) {
-                        $key[] = $values[$i];
-                        $i++;
-                    }
-                }
+                $this->namespace_operation(function (&$key) use($values, $i){
+                    var_dump($values);
+                    var_dump($i);
+                    $key[] = $values[$i];
+                    $i++;
+                });
             }
             else {
                 throw new Exception('$values don\'t match keys number');
@@ -107,6 +113,9 @@ class Scheme
         foreach ($this->keys as &$key) {
             array_pop($key);
         }
+        $this->namespace_operation(function($key) {
+            array_pop($key);
+        });
     }
 
     public function get_keys()
