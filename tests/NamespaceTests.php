@@ -24,4 +24,17 @@ final class NamespaceTests extends TestCase
         $namespace = $this->scheme->get_namespace("mycoolnamespace");
         $this->assertSame(["wot", "is", "dis"], $namespace["yay"]);
     }
+
+    /**
+     * @depends test_namespace_fetching
+     */
+    public function test_key_push() {
+        $this->scheme->push_to_schema("de", true, []);
+        $namespace = $this->scheme->get_namespace("mycoolnamespace");
+        $this->assertSame(["yes", "i", "agree", "fallback"], $namespace["key"]);
+
+        $this->scheme->push_to_schema("fr", false, ["tonormal", "tonamespace"]);
+        $namespace = $this->scheme->get_namespace("mycoolnamespace");
+        $this->assertSame(["yes", "i", "agree", "fallback", "tonamespace"], $namespace["key"]);
+    }
 }

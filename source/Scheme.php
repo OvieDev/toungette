@@ -72,13 +72,28 @@ class Scheme
             foreach ($this->keys as &$key) {
                 $key[] = $this->fallback;
             }
+            foreach ($this->namespaces as &$namespace) {
+                foreach ($namespace as &$key) {
+                    $key[] = $this->fallback;
+                }
+            }
         }
         else {
-            if (count($values)==count($this->keys)) {
+            $total_count = 0;
+            foreach ($this->namespaces as $nspace) {
+                $total_count+=count($nspace);
+            }
+            if (count($values)==count($this->keys)+$total_count) {
                 $i = 0;
                 foreach ($this->keys as &$key) {
                     $key[] = $values[$i];
                     $i++;
+                }
+                foreach ($this->namespaces as &$namespace) {
+                    foreach ($namespace as &$key) {
+                        $key[] = $values[$i];
+                        $i++;
+                    }
                 }
             }
             else {
