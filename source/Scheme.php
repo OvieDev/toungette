@@ -64,13 +64,18 @@ class Scheme
         $this->keys[$keyname] = $keys;
     }
 
-    public function delete_key(string $keyname): void
+    public function delete_key(string $keyname, string $namespace=""): void
     {
-        if (!array_key_exists($keyname, $this->keys)) {
+        if($namespace=="") {
+            $target = $this->keys;
+        } else {
+            $target = $this->namespaces[$namespace];
+        }
+        if (!array_key_exists($keyname, $target)) {
             throw new Exception("Key doesn't exists");
         }
 
-        unset($this->keys[$keyname]);
+        unset($target[$keyname]);
     }
 
     public function push_to_schema(string $lang, bool $use_fallback, array $values): void

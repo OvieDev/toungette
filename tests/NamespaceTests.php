@@ -37,4 +37,9 @@ final class NamespaceTests extends TestCase
         $namespace = $this->scheme->get_namespace("mycoolnamespace");
         $this->assertSame(["yes", "i", "agree", "fallback", "tonamespace"], $namespace["key"]);
     }
+
+    public function test_key_delete() {
+        $this->scheme->delete_key("key", "mycoolnamespace");
+        $this->assert_same([], $this->get_namespace("mycoolnamespace"));
+    }
 }
