@@ -10,6 +10,7 @@ before `.tounge` files are just HTML with translations...
 We can integrate Toungette with Laravel by its custom
 Blade directive. Syntax looks like this: \
 `@toungette('scheme.json;key.name')` \
+Before you do that though, you need to add `ToungetteBlade` as a service provider to your project.
 It's very important to keep this syntax as it is because
-otherwise it will not work. 
+otherwise it will not work. \
 [< Back](filldirectives.md)
