@@ -6,3 +6,6 @@ Table of contents:
 - [3. Basics of Translation with Toungette](basics.md)
 - [4. \@fill directive](filldirectives.md)
 - [5. Laravel + Toungette](laravel.md)
+
+## Reference
+- [Translator](Translator.md)
