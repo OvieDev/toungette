@@ -11,12 +11,18 @@ website *(Scheme)*
 Translates .tounge files by using keys defined in `schem.json`
 
 ### `fill` method
+*Arguments:* **array** *$array*\
 Fills the gaps made by \@fill directives
 
-*Arguments* \
 `$array` - array to fill the gaps
 
 **NOTE:** Use this method after translating your page
+
+### `use_namespace` method
+*Arguments:* **string** *$namespace*\
+Adds keys from specified namespace to main key collection
+
+`$namespace` - Namespace, from which keys will be fetched
 
 ## Constructor
 *Arguments:* **string** *$template*, **string** *$page*, **string** *$lang=""* \
