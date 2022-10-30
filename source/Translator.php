@@ -11,6 +11,7 @@ class Translator
     public Scheme $scheme;
     public string $lang;
     public string $text;
+    private array $keys;
 
     public function __construct($template, $page, $lang=null) {
         $this->page_template = $page;
@@ -24,6 +25,7 @@ class Translator
             $this->lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
         }
         $this->scheme = new Scheme($template, "Fallback text");
+        $this->keys = $this->scheme->get_keys();
     }
 
     private function get_lang_index(): int
@@ -65,10 +67,17 @@ class Translator
 
     }
 
+    public function use_namespace(string $namespace) {
+        $n = $this->scheme->get_namespace($namespace);
+        foreach (array_keys($n) as $key) {
+            $this->keys["$namespace.$key"] = $n[$key];
+        }
+    }
+
     public function translate(): void
     {
         $html = file_get_contents($this->page_template);
-        foreach (array_keys($this->scheme->get_keys()) as $key) {
+        foreach (array_keys($this->keys) as $key) {
             $pattern = '/(?<!\/){'.$key.'}/';
             $html = preg_replace($pattern, $this->scheme->get_keys()[$key][$this->get_lang_index()], $html);
         }

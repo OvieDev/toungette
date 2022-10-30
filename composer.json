@@ -19,5 +19,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "9.5.24"
+    },
+    "suggest": {
+        "laravel/laravel": "For blade template inegration"
     }
 }

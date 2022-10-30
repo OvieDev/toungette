@@ -6,5 +6,12 @@
       "cool",
       "key"
     ]
+  },
+  "mycoolnamespace": {
+    "key": [
+      "yes",
+      "i",
+      "agree"
+    ]
   }
 }

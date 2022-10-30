@@ -8,7 +8,7 @@ final class SchemeTests extends TestCase{
 
     protected function setUp(): void
     {
-        $this->scheme = new Scheme("schem.json", "fallback");
+        $this->scheme = new Scheme("test_component_schem.json", "fallback");
     }
 
     public function test_add(): void {
@@ -21,7 +21,6 @@ final class SchemeTests extends TestCase{
      * @depends test_add
      */
     public function test_reset(): void {
-        $this->scheme = new Scheme("schem.json", "fallback");
         $this->scheme->modify_key("key.new", ["hey", "im", "new"]);
         $this->scheme->reset_scheme();
 
@@ -46,7 +45,7 @@ final class SchemeTests extends TestCase{
         $this->assertContains("de", $this->scheme->get_schema());
         $this->assertContains($this->scheme->fallback, $this->scheme->get_keys()["key.coolkey"]);
 
-        $this->scheme->push_to_schema("fr", false, ["not a fallback"]);
+        $this->scheme->push_to_schema("fr", false, ["not a fallback", "tonamespace"]);
 
         $this->assertContains("fr", $this->scheme->get_schema());
         $this->assertContains("not a fallback", $this->scheme->get_keys()["key.coolkey"]);

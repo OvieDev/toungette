@@ -72,4 +72,4 @@ become pretty bloated. You can create another file, which contains
 functions. In that way, your main file is not so bloated and you have
 everything organized.\
 \
-[< BACK](basics.md)
+[< Back](basics.md) | [Next >](laravel.md)

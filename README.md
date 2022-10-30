@@ -18,7 +18,7 @@ After you did so, use:\
 `composer require oviedev/toungette`
 
 ## Documentation
-You can view documentation here: [Documentation](docs/introduction.md)
+You can view documentation here: [Documentation](docs/README.md)
 
 ## How to use
 Let's make a simple website with one page.\
