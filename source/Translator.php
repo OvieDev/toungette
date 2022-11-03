@@ -73,6 +73,19 @@ class Translator
             $this->keys["$namespace.$key"] = $n[$key];
         }
     }
+    // TODO: Test this function
+    private function html_tag_handle($page) {
+        $html = new HtmlDocument();
+        $html->load($page);
+        $tag = $html->find("condition[bool]");
+        foreach ($tag as $tags) {
+            eval('$code = '."$tags->href;");
+            if ($code) {
+                $tags->remove();
+            }
+        }
+        return $html;
+    }
 
     public function translate(): void
     {
