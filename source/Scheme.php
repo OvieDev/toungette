@@ -54,22 +54,34 @@ class Scheme
     {
         $this->schema = $this->json['schema'];
         $this->keys = $this->json['keys'];
+        $this->namespaces = [];
+
+        $looper = $this->json;
+        while($val = current($looper))
+        {
+            if(key($looper)!="keys" and key($looper)!="schema") {
+                $this->namespaces[key($looper)] = $val;
+            }
+            next($looper);
+        }
     }
 
-    public function modify_key(string $keyname, array $keys): void
+    public function modify_key(string $keyname, array $values): void
     {
-        if (count($keys)!=count($this->schema)) {
+        if (count($values)!=count($this->schema)) {
             throw new Exception("Key order doesn't match the schema");
         }
-        $this->keys[$keyname] = $keys;
+        $this->keys[$keyname] = $values;
     }
 
     public function delete_key(string $keyname, string $namespace=""): void
     {
-        if($namespace=="") {
-            $target = $this->keys;
-        } else {
-            $target = $this->namespaces[$namespace];
+        if($namespace=="")
+        {
+            $target = &$this->keys;
+        }
+        else {
+            $target = &$this->namespaces[$namespace];
         }
         if (!array_key_exists($keyname, $target)) {
             throw new Exception("Key doesn't exists");
@@ -101,8 +113,6 @@ class Scheme
                     $i++;
                 }
                 $this->namespace_operation(function (&$key) use($values, $i){
-                    var_dump($values);
-                    var_dump($i);
                     $key[] = $values[$i];
                     $i++;
                 });
