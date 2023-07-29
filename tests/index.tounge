@@ -1,0 +1,8 @@
+<body>
+    <b>{key.coolkey}</b>
+
+    <langblock lang="pl">
+        <div>hi</div>
+        This won't be in polish version of the site
+    </langblock>
+</body>

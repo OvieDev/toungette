@@ -67,6 +67,27 @@ class Translator
 
     }
 
+    private function lang_block($page) : string {
+        $html = new HtmlDocument();
+        $html->load($page);
+        $blocks = $html->find("langblock");
+        foreach ($blocks as $block) {
+            if (!$block->lang) {
+                $html_block_text = $block->innerText;
+                $block->outerText = $html_block_text;
+            }
+            else {
+                if ($this->lang==$block->lang) {
+                    $block->remove();
+                }
+                else {
+                    $block->__set("outertext", $block->innerText());
+                }
+            }
+        }
+        return $html;
+    }
+
     public function use_namespace(string $namespace) {
         $n = $this->scheme->get_namespace($namespace);
         foreach (array_keys($n) as $key) {
@@ -83,6 +104,7 @@ class Translator
         }
         $html = preg_replace('/(?<=[\s\t\n])\//', '', $html);
         $html = $this->translate_links($html);
+        $html = $this->lang_block($html);
         $this->text = $html;
     }
 
